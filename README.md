@@ -22,6 +22,20 @@ alias hermes='docker run -it --rm \
 
 Then `source ~/.bashrc`.
 
+Variant that mounts the current directory as a workspace:
+
+```sh
+alias hermes-cwd='docker run -it --rm \
+  -v ~/.hermes:/opt/data \
+  -v "$(pwd)":/workspace \
+  -w /workspace \
+  -e HERMES_UID="$(id -u)" \
+  -e HERMES_GID="$(id -g)" \
+  ghcr.io/lisp719/hermes-slim-image:latest'
+```
+
+`hermes-cwd chat` — same as `hermes chat`, but `$(pwd)` is available at `/workspace` inside the container (e.g. for file operations or ACP project work). Without `-w /workspace` the default WORKDIR is `/opt/hermes` (the agent source tree).
+
 Usage:
 
 | Command              | Action       |
