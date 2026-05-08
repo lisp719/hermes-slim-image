@@ -18,7 +18,7 @@ RUN useradd -u 10000 -m -d /opt/data hermes
 
 WORKDIR /opt/hermes
 
-RUN git clone --depth 1 --branch v2026.4.30 https://github.com/NousResearch/hermes-agent.git . && \
+RUN git clone --depth 1 --branch v2026.5.7 https://github.com/NousResearch/hermes-agent.git . && \
     rm -rf .git
 
 RUN pip install --no-cache-dir uv==0.11.6
