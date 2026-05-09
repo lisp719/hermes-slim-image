@@ -15,6 +15,7 @@ RUN apt-get update && \
 COPY --chmod=0755 --from=gosu_source /gosu /usr/local/bin/
 
 RUN useradd -u 10000 -m -d /opt/data hermes
+RUN mkdir -p /workspace && chmod 1777 /workspace
 
 WORKDIR /opt/hermes
 
@@ -29,4 +30,5 @@ RUN chmod -R a+rX /opt/hermes
 ENV HERMES_HOME=/opt/data
 ENV PATH="/opt/data/.local/bin:${PATH}"
 VOLUME [ "/opt/data" ]
+WORKDIR /workspace
 ENTRYPOINT [ "/usr/bin/tini", "-g", "--", "/opt/hermes/docker/entrypoint.sh" ]
