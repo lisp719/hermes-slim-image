@@ -1,4 +1,14 @@
+FROM node:22-slim AS web-builder
+RUN apt-get update && apt-get install -y --no-install-recommends git ca-certificates && rm -rf /var/lib/apt/lists/*
+WORKDIR /build
+RUN git clone --depth 1 --branch v2026.5.7 https://github.com/NousResearch/hermes-agent.git . && \
+    rm -rf .git
+WORKDIR /build/web
+RUN npm install && npm run build && \
+    rm -rf node_modules .vite
+
 FROM tianon/gosu:1.19-trixie AS gosu_source
+
 FROM python:3.13-slim
 
 ENV PYTHONUNBUFFERED=1
@@ -20,11 +30,10 @@ RUN mkdir -p /workspace && chmod 1777 /workspace
 
 WORKDIR /opt/hermes
 
-RUN git clone --depth 1 --branch v2026.5.7 https://github.com/NousResearch/hermes-agent.git . && \
-    rm -rf .git
+COPY --from=web-builder /build/ .
 
 RUN pip install --no-cache-dir uv==0.11.6
-RUN uv venv && uv pip install --no-cache-dir -e ".[messaging,cron,cli,pty,honcho,mcp,acp]"
+RUN uv venv && uv pip install --no-cache-dir -e ".[messaging,cron,cli,pty,honcho,mcp,acp,web]"
 
 RUN chmod -R a+rX /opt/hermes
 
