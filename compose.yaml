@@ -2,12 +2,14 @@ services:
   app:
     build: .
     environment:
+      - HERMES_DASHBOARD=1
       - HERMES_UID=${HERMES_UID:-1000}
       - HERMES_GID=${HERMES_GID:-1000}
     ports:
       - 8642:8642
+      - 9119:9119
     volumes:
       - ~/.hermes:/opt/data
       - .:/workspace
     working_dir: /workspace
-    command: [ "gateway", "run" ]
+    command: gateway run
