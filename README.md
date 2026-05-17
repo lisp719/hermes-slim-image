@@ -65,4 +65,13 @@ docker compose run --rm app doctor
 
 With [Task](https://taskfile.dev/): `task`, `task setup`, `task doctor`.
 
+## Compose for Kanban
+
+Download and save locally, then run:
+
+```sh
+curl -sSLo compose.kanban.yaml https://raw.githubusercontent.com/lisp719/hermes-slim-image/main/compose.kanban.yaml
+docker compose -f compose.kanban.yaml up
+```
+
 Config goes in `~/.hermes/config.yaml` (mounted to `/opt/data`). Set `HERMES_UID`/`HERMES_GID` if your host UID differs from 1000.
