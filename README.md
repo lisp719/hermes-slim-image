@@ -6,7 +6,7 @@ Based on `python:3.13-slim`. Uses `uv` for fast installs, only the necessary ext
 
 Image: `ghcr.io/lisp719/hermes-slim-image:latest`.
 
-Installed extras: `messaging`, `cron`, `cli`, `pty`, `honcho`, `mcp`, `acp`.
+Installed extras: `messaging`, `cron`, `cli`, `pty`, `honcho`, `mcp`, `acp`, `web`.
 
 ## Alias
 
